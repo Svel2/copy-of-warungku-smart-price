@@ -1,0 +1,7 @@
+{
+  "name": "Copy of WarungKu Smart Price",
+  "description": "Aplikasi manajemen harga dan pengkategorian produk untuk toko kelontong dengan bantuan AI untuk estimasi harga pasar.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
