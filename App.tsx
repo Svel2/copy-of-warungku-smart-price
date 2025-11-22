@@ -4,6 +4,7 @@ import { Product } from './types';
 import { getProducts, addProduct, updateProduct, deleteProduct, generateId } from './services/storageService';
 import { ProductForm } from './components/ProductForm';
 import { BottomNav } from './components/BottomNav';
+import { Sidebar } from './components/Sidebar';
 import { HomePage } from './components/HomePage';
 import { CategoryPage } from './components/CategoryPage';
 
@@ -133,48 +134,52 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300 relative">
-      <div className="max-w-md mx-auto min-h-screen bg-white dark:bg-gray-900 shadow-2xl overflow-hidden relative">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300 relative">
+      <Sidebar currentView={currentView} onNavigate={handleNavigation} />
 
-        {/* Main Content Area */}
-        <div className="h-full overflow-y-auto no-scrollbar">
-          {isLoading ? (
-            <div className="flex flex-col items-center justify-center h-screen pb-20 text-gray-400">
-              <Loader2 className="animate-spin mb-3 text-blue-500" size={32} />
-              <p>Memuat data warung...</p>
-            </div>
-          ) : currentView === 'home' ? (
-            <HomePage
-              products={filteredProducts}
-              onProductClick={openEditModal}
-              searchQuery={searchQuery}
-              onSearchChange={setSearchQuery}
-            />
-          ) : (
-            <CategoryPage
-              categories={categories}
-              onCategoryClick={(cat) => {
-                // For now, maybe filter or just show toast? 
-                // The design doesn't specify what happens on category click other than maybe filtering.
-                // Let's just switch to home and filter (if we had that logic connected, but for now just log or alert)
-                console.log("Category clicked:", cat);
-                // Optional: Implement filtering logic here if desired, 
-                // for now just keeping it simple as per design request which focuses on layout.
-              }}
-            />
-          )}
+      <div className="md:ml-64 min-h-screen">
+        <div className="max-w-7xl mx-auto min-h-screen bg-white dark:bg-gray-900 shadow-sm md:shadow-none overflow-hidden relative">
+
+          {/* Main Content Area */}
+          <div className="h-full overflow-y-auto no-scrollbar">
+            {isLoading ? (
+              <div className="flex flex-col items-center justify-center h-screen pb-20 text-gray-400">
+                <Loader2 className="animate-spin mb-3 text-blue-500" size={32} />
+                <p>Memuat data warung...</p>
+              </div>
+            ) : currentView === 'home' ? (
+              <HomePage
+                products={filteredProducts}
+                onProductClick={openEditModal}
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+              />
+            ) : (
+              <CategoryPage
+                categories={categories}
+                onCategoryClick={(cat) => {
+                  // For now, maybe filter or just show toast? 
+                  // The design doesn't specify what happens on category click other than maybe filtering.
+                  // Let's just switch to home and filter (if we had that logic connected, but for now just log or alert)
+                  console.log("Category clicked:", cat);
+                  // Optional: Implement filtering logic here if desired, 
+                  // for now just keeping it simple as per design request which focuses on layout.
+                }}
+              />
+            )}
+          </div>
+
+          {/* Bottom Navigation */}
+          <BottomNav currentView={currentView} onNavigate={handleNavigation} />
+
+          {/* Modal */}
+          <ProductForm
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            onSave={handleSaveProduct}
+            initialData={editingProduct}
+          />
         </div>
-
-        {/* Bottom Navigation */}
-        <BottomNav currentView={currentView} onNavigate={handleNavigation} />
-
-        {/* Modal */}
-        <ProductForm
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          onSave={handleSaveProduct}
-          initialData={editingProduct}
-        />
       </div>
     </div>
   );

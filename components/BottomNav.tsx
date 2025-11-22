@@ -8,12 +8,12 @@ interface BottomNavProps {
 
 export const BottomNav: React.FC<BottomNavProps> = ({ currentView, onNavigate }) => {
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-t border-gray-200 dark:border-gray-800 pb-safe pt-2 px-8 flex justify-between items-center z-50 h-20 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-t border-gray-200 dark:border-gray-800 pb-safe pt-2 px-8 flex justify-between items-center z-50 h-20 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
       <button
         onClick={() => onNavigate('home')}
         className={`p-3 rounded-2xl transition-all duration-300 flex flex-col items-center gap-1 ${currentView === 'home'
-            ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
-            : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
+          ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
+          : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
           }`}
       >
         <Home size={22} strokeWidth={currentView === 'home' ? 2.5 : 2} />
@@ -30,8 +30,8 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentView, onNavigate })
       <button
         onClick={() => onNavigate('categories')}
         className={`p-3 rounded-2xl transition-all duration-300 flex flex-col items-center gap-1 ${currentView === 'categories'
-            ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
-            : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
+          ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
+          : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
           }`}
       >
         <Grid size={22} strokeWidth={currentView === 'categories' ? 2.5 : 2} />

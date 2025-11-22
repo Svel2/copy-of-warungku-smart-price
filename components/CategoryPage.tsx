@@ -24,9 +24,9 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ categories, onCatego
             </div>
 
             {/* Category Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 {categories.length === 0 ? (
-                    <div className="col-span-2 text-center py-10 text-gray-400 text-sm">
+                    <div className="col-span-full text-center py-10 text-gray-400 text-sm">
                         Belum ada kategori.
                     </div>
                 ) : (

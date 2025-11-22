@@ -51,9 +51,9 @@ export const HomePage: React.FC<HomePageProps> = ({ products, onProductClick, se
             </div>
 
             {/* Product List */}
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pb-24 md:pb-6">
                 {products.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center py-12 text-center">
+                    <div className="col-span-full flex flex-col items-center justify-center py-12 text-center">
                         <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
                             <Search className="h-8 w-8 text-gray-400" />
                         </div>
