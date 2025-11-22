@@ -8,26 +8,34 @@ interface BottomNavProps {
 
 export const BottomNav: React.FC<BottomNavProps> = ({ currentView, onNavigate }) => {
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 pb-safe pt-2 px-6 flex justify-between items-center z-50 h-16">
-      <button 
+    <div className="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-t border-gray-200 dark:border-gray-800 pb-safe pt-2 px-8 flex justify-between items-center z-50 h-20 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+      <button
         onClick={() => onNavigate('home')}
-        className={`p-2 rounded-full transition-colors ${currentView === 'home' ? 'text-black dark:text-white' : 'text-gray-400'}`}
+        className={`p-3 rounded-2xl transition-all duration-300 flex flex-col items-center gap-1 ${currentView === 'home'
+            ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
+            : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
+          }`}
       >
-        <Home size={24} />
+        <Home size={22} strokeWidth={currentView === 'home' ? 2.5 : 2} />
+        {currentView === 'home' && <span className="text-[10px] font-bold">Home</span>}
       </button>
-      
-      <button 
+
+      <button
         onClick={() => onNavigate('add')}
-        className="bg-black dark:bg-white text-white dark:text-black p-3 rounded-full -mt-8 shadow-lg hover:scale-105 transition-transform"
+        className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full -mt-12 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border-4 border-white dark:border-gray-900"
       >
-        <Plus size={24} />
+        <Plus size={28} strokeWidth={2.5} />
       </button>
-      
-      <button 
+
+      <button
         onClick={() => onNavigate('categories')}
-        className={`p-2 rounded-full transition-colors ${currentView === 'categories' ? 'text-black dark:text-white' : 'text-gray-400'}`}
+        className={`p-3 rounded-2xl transition-all duration-300 flex flex-col items-center gap-1 ${currentView === 'categories'
+            ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
+            : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
+          }`}
       >
-        <Grid size={24} />
+        <Grid size={22} strokeWidth={currentView === 'categories' ? 2.5 : 2} />
+        {currentView === 'categories' && <span className="text-[10px] font-bold">Kategori</span>}
       </button>
     </div>
   );

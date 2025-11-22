@@ -10,31 +10,40 @@ export const ProductListCard: React.FC<ProductListCardProps> = ({ product, onCli
     return (
         <div
             onClick={onClick}
-            className="bg-blue-100 dark:bg-blue-900/30 rounded-xl p-4 flex justify-between items-center relative overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+            className="bg-white dark:bg-gray-800 rounded-2xl p-3 flex justify-between items-center relative overflow-hidden cursor-pointer shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all active:scale-[0.98]"
         >
-            <div className="z-10">
-                <h3 className="font-semibold text-lg text-gray-800 dark:text-gray-100">{product.name}</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                    Rp {product.sellPrice.toLocaleString()}
-                </p>
+            <div className="flex items-center flex-1 min-w-0">
+                <div className="w-16 h-16 relative shrink-0 mr-4">
+                    {product.image ? (
+                        <img
+                            src={product.image}
+                            alt={product.name}
+                            className="w-full h-full object-cover rounded-xl bg-gray-100 dark:bg-gray-700"
+                        />
+                    ) : (
+                        <div className="w-full h-full bg-gray-100 dark:bg-gray-700 rounded-xl flex items-center justify-center text-[10px] text-gray-400">
+                            No Img
+                        </div>
+                    )}
+                </div>
+
+                <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-base text-gray-900 dark:text-gray-100 truncate pr-2">{product.name}</h3>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 mb-1 truncate">
+                        {product.category || 'Umum'}
+                    </p>
+                    <p className="font-bold text-blue-600 dark:text-blue-400">
+                        Rp {product.sellPrice.toLocaleString()}
+                    </p>
+                </div>
             </div>
 
-            <div className="absolute top-2 right-2 bg-white/50 dark:bg-black/20 px-2 py-0.5 rounded text-xs text-gray-600 dark:text-gray-300 backdrop-blur-sm">
-                Stock-50
-            </div>
-
-            <div className="w-20 h-20 relative shrink-0 ml-4">
-                {product.image ? (
-                    <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-full object-cover rounded-lg shadow-sm rotate-6 transform hover:rotate-0 transition-transform duration-300"
-                    />
-                ) : (
-                    <div className="w-full h-full bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center text-xs text-gray-400">
-                        No Img
-                    </div>
-                )}
+            <div className="flex flex-col items-end justify-between h-full pl-2">
+                {/* Use a dynamic stock badge if available, else show a generic 'In Stock' or remove */}
+                {/* For now, using a cleaner badge style */}
+                <div className="bg-green-100 dark:bg-green-900/30 px-2 py-1 rounded-lg">
+                    <span className="text-[10px] font-bold text-green-700 dark:text-green-400">Ready</span>
+                </div>
             </div>
         </div>
     );

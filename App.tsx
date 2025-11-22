@@ -18,6 +18,7 @@ const App: React.FC = () => {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
   const [currentView, setCurrentView] = useState<'home' | 'categories' | 'add'>('home');
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Fetch Data on Mount
   const fetchProducts = async () => {
@@ -37,6 +38,16 @@ const App: React.FC = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  // Filter products based on search query
+  const filteredProducts = useMemo(() => {
+    if (!searchQuery) return products;
+    const lowerQuery = searchQuery.toLowerCase();
+    return products.filter(p =>
+      p.name.toLowerCase().includes(lowerQuery) ||
+      p.category.toLowerCase().includes(lowerQuery)
+    );
+  }, [products, searchQuery]);
 
   // Unique categories for filter
   const categories = useMemo(() => {
@@ -134,8 +145,10 @@ const App: React.FC = () => {
             </div>
           ) : currentView === 'home' ? (
             <HomePage
-              products={products}
+              products={filteredProducts}
               onProductClick={openEditModal}
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
             />
           ) : (
             <CategoryPage
