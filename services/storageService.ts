@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabaseClient';
 
 export const getProducts = async (): Promise<Product[]> => {
   try {
+    if (!supabase) return [];
     const { data, error } = await supabase
       .from('products')
       .select('*')
@@ -29,6 +30,7 @@ export const getProducts = async (): Promise<Product[]> => {
 
 export const addProduct = async (product: Product): Promise<void> => {
   try {
+    if (!supabase) return;
     const { error } = await supabase
       .from('products')
       .insert([{
@@ -49,6 +51,7 @@ export const addProduct = async (product: Product): Promise<void> => {
 
 export const updateProduct = async (product: Product): Promise<void> => {
   try {
+    if (!supabase) return;
     const { error } = await supabase
       .from('products')
       .update({
@@ -69,6 +72,7 @@ export const updateProduct = async (product: Product): Promise<void> => {
 
 export const deleteProduct = async (id: string): Promise<void> => {
   try {
+    if (!supabase) return;
     const { error } = await supabase
       .from('products')
       .delete()

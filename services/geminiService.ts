@@ -1,12 +1,17 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { AIPriceSuggestion } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
+const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
 
 export const suggestProductInfo = async (productName: string): Promise<AIPriceSuggestion | null> => {
   if (!productName) return null;
 
   try {
+    if (!ai) {
+      console.warn("Gemini API Key missing");
+      return null;
+    }
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: `Berikan estimasi harga jual eceran yang wajar untuk toko kelontong/warung kecil di Indonesia untuk produk: "${productName}". 
@@ -63,6 +68,7 @@ export const generateProductImage = async (productName: string): Promise<string 
   if (!productName) return null;
 
   try {
+    if (!ai) return null;
     // Using the new Imagen 3 model for high quality generation
     const response = await ai.models.generateImages({
       model: 'imagen-4.0-generate-001',
@@ -75,8 +81,8 @@ export const generateProductImage = async (productName: string): Promise<string 
     });
 
     if (response.generatedImages && response.generatedImages.length > 0) {
-       const base64ImageBytes = response.generatedImages[0].image.imageBytes;
-       return `data:image/jpeg;base64,${base64ImageBytes}`;
+      const base64ImageBytes = response.generatedImages[0].image.imageBytes;
+      return `data:image/jpeg;base64,${base64ImageBytes}`;
     }
     return null;
   } catch (error) {
