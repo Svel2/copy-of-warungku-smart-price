@@ -129,6 +129,9 @@ const App: React.FC = () => {
     if (view === 'add') {
       openAddModal();
     } else {
+      if (view === 'home') {
+        setSearchQuery('');
+      }
       setCurrentView(view);
     }
   };
@@ -158,12 +161,8 @@ const App: React.FC = () => {
               <CategoryPage
                 categories={categories}
                 onCategoryClick={(cat) => {
-                  // For now, maybe filter or just show toast? 
-                  // The design doesn't specify what happens on category click other than maybe filtering.
-                  // Let's just switch to home and filter (if we had that logic connected, but for now just log or alert)
-                  console.log("Category clicked:", cat);
-                  // Optional: Implement filtering logic here if desired, 
-                  // for now just keeping it simple as per design request which focuses on layout.
+                  setSearchQuery(cat);
+                  setCurrentView('home');
                 }}
               />
             )}
